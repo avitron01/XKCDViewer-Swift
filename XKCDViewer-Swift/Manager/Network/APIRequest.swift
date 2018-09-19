@@ -31,7 +31,7 @@ protocol APIRequest {
 extension URLRequest: APIRequest {
     init?(path: String,
          headers: [String : String]? = nil, method: HTTPMethod? = nil) {
-        let urlString = "\(APIURL.base)\(path)"
+        let urlString = "\(APIURL.base.value)\(path)"
         
         guard let url = URL(string: urlString) else {
             print("URL creation failed")
