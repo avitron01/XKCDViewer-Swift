@@ -60,6 +60,6 @@ class CachedImageView: UIImageView {
                 }, completion: nil)
                 completion?()
             }
-            }.resume()
+        }.resume()
     }
 }
