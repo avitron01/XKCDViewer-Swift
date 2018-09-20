@@ -1,5 +1,5 @@
 //
-//    APIURL.swift
+//    DiscardableImage.swift
 //
 //    Copyright (c) 2018 avitron01
 //
@@ -23,39 +23,38 @@
 //
 
 import Foundation
+import UIKit
 
-enum HTTPMethod: String {
-    case options = "OPTIONS"
-    case get     = "GET"
-    case head    = "HEAD"
-    case post    = "POST"
-    case put     = "PUT"
-    case patch   = "PATCH"
-    case delete  = "DELETE"
-    case trace   = "TRACE"
-    case connect = "CONNECT"
-}
-
-enum APIURL {
-    case base
-    case latest
-    case issue(Int)    
+class DiscardableImage: NSDiscardableContent {
+    private(set) var image: UIImage?
+    var accessCount: UInt = 0
     
-    var value: String {
-        switch self {
-        case .base:
-            return "https://xkcd.com"
-        case .latest:
-            return "/info.0.json"
-        case .issue(let issueNo):
-            return "/\(issueNo)/info.0.json"
+    init(_ image: UIImage) {
+        self.image = image
+    }
+    
+    func beginContentAccess() -> Bool {
+        if image == nil {
+            return false
+        }
+        
+        accessCount += 1
+        return true
+    }
+    
+    func endContentAccess() {
+        if accessCount > 0 {
+            accessCount -= 1
         }
     }
     
-    var method: HTTPMethod {
-        switch self {
-        case .base, .latest, .issue(_):
-            return .get
+    func discardContentIfPossible() {
+        if accessCount == 0 {
+            image = nil
         }
+    }
+    
+    func isContentDiscarded() -> Bool {
+        return image == nil
     }
 }

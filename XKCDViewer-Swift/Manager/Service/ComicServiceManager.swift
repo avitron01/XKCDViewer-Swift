@@ -25,14 +25,86 @@
 import Foundation
 
 typealias LastestIssueCompletion = (Result<Comic>) -> Void
+typealias IssueListCompletion = (Result<[Comic]>) -> Void
 
 class ComicServiceManager {
+    static let shared = ComicServiceManager()
+    var comicList = [Comic]()
     
-    public static func fetchLatestIssue(completion: @escaping LastestIssueCompletion) {
+    var latestIssueNumber: Int? {
+        didSet {
+            if let issueNumber = latestIssueNumber {
+                issuesRemaining = issueNumber
+            }
+        }
+    }
+    var issuesRemaining = 0
+    
+    func fetchLatestIssue(completion: @escaping LastestIssueCompletion) {
         let endPoint = APIURL.latest
+        
+        APIManager.fetchData(for: endPoint, type: Comic.self) { result in
+            switch result {
+            case .success(let comic):
+                self.handleLatestComicResult(comic)
+            case .error(_):
+                break
+            }
+            completion(result)
+        }
+    }
+    
+    func handleLatestComicResult(_ comic: Comic?) {
+        guard let comic = comic else {
+            print("No comic found")
+            return
+        }
+        
+        latestIssueNumber = comic.num
+        comicList.append(comic)
+    }
+    
+    //TODO: Need to look into this, very fragile for now
+    func fetchIssues(for count: Int, completion: @escaping IssueListCompletion) {
+        if let _ = latestIssueNumber {
+            let endRange = issuesRemaining
+            let startRange = issuesRemaining - count
+            for i in startRange...endRange {
+                fetchComic(for: i) { result in
+                    switch result {
+                    case .success(let comic):
+                        self.handleComicFetch(for: comic)
+                    case .error(_):
+                        break
+                    }
+                    
+                    if self.issuesRemaining == startRange {
+                        completion(Result.success(self.comicList))
+                    }
+                }
+            }
+        } else {
+            fetchLatestIssue { result in
+                self.fetchIssues(for: count, completion: completion)
+            }
+        }
+    }
+    
+    func fetchComic(for num: Int, completion: @escaping LastestIssueCompletion) {
+        let endPoint = APIURL.issue(num)
         
         APIManager.fetchData(for: endPoint, type: Comic.self) { result in
             completion(result)
         }
+    }
+    
+    func handleComicFetch(for comic: Comic?) {
+        guard let comic = comic else {
+            print("No comic found")
+            return
+        }
+        
+        issuesRemaining -= 1
+        comicList.append(comic)
     }
 }

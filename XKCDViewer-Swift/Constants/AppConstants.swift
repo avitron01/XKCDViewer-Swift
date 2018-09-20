@@ -27,3 +27,8 @@ import Foundation
 struct AppConstants {
     static let AppDomain = "com.avitron01.XKCDViewer-Swift"
 }
+
+struct CellIdentifier {
+    static let ComicCell = "ComicCell"
+}
+

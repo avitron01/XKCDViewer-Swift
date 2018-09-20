@@ -1,5 +1,5 @@
 //
-//    APIURL.swift
+//    UIAlertControllerExtension.swift
 //
 //    Copyright (c) 2018 avitron01
 //
@@ -23,39 +23,20 @@
 //
 
 import Foundation
+import UIKit
 
-enum HTTPMethod: String {
-    case options = "OPTIONS"
-    case get     = "GET"
-    case head    = "HEAD"
-    case post    = "POST"
-    case put     = "PUT"
-    case patch   = "PATCH"
-    case delete  = "DELETE"
-    case trace   = "TRACE"
-    case connect = "CONNECT"
+protocol ErrorAlert {
+    static func showErrorAlert<T: UIViewController>(for error: Error?,in viewController: T)
 }
 
-enum APIURL {
-    case base
-    case latest
-    case issue(Int)    
+extension UIAlertController: ErrorAlert {
     
-    var value: String {
-        switch self {
-        case .base:
-            return "https://xkcd.com"
-        case .latest:
-            return "/info.0.json"
-        case .issue(let issueNo):
-            return "/\(issueNo)/info.0.json"
-        }
+    static func showErrorAlert<T: UIViewController>(for error: Error?, in viewController: T) {
+        let alert = UIAlertController.init(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        
+        alert.addAction(alertAction)
+        viewController.present(alert, animated: true, completion: nil)
     }
     
-    var method: HTTPMethod {
-        switch self {
-        case .base, .latest, .issue(_):
-            return .get
-        }
-    }
 }

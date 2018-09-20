@@ -24,47 +24,67 @@
 
 import UIKit
 
-protocol LatestComicProtocol {
-    func fetchLatestIssue()
-    func handleLatestComicResult(_ comic: Comic?)
-    func handleLatestComicFailure(_ error: Error?)
+protocol IssuedComicProtocol {
+    func fetchIssues()
+    func handleIssuedComicResult(_ comic: [Comic]?)
+    func handleIssuedComicFailure(_ error: Error?)
 }
 
 class ViewController: UIViewController {
+    @IBOutlet weak var tableView: UITableView!
+    
+    var comicsList: [Comic] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchLatestIssue()
+        fetchIssues()
     }
     
 }
 
-extension ViewController: LatestComicProtocol {
-    func fetchLatestIssue() {
-        ComicServiceManager.fetchLatestIssue { result in
+extension ViewController: IssuedComicProtocol {
+    func fetchIssues() {
+        ComicServiceManager.shared.fetchIssues(for: 10) { result in
             switch result {
-            case .success(let comic):
-                self.handleLatestComicResult(comic)
+            case .success(let comics):
+                self.handleIssuedComicResult(comics)
             case .error(let error):
-                self.handleLatestComicFailure(error)
+                self.handleIssuedComicFailure(error)
             }
         }
     }
     
-    func handleLatestComicResult(_ comic: Comic?) {
-        guard let comic = comic else {
+    func handleIssuedComicResult(_ comics: [Comic]?) {
+        guard let comicList = comics else {
             print("No latest comic found")
             return
         }
         
-        print(comic)
+        self.comicsList.append(contentsOf: comicList)
+        self.tableView.reloadData()        
     }
     
-    func handleLatestComicFailure(_ error: Error?) {
-        guard let error = error else {
-            print("No error object to handle")
-            return
+    func handleIssuedComicFailure(_ error: Error?) {
+        UIAlertController.showErrorAlert(for: error, in: self)
+    }
+}
+
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return comicsList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellIdentifier = CellIdentifier.ComicCell
+        let tempCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        
+        guard let cell = tempCell as? ComicTableViewCell else {
+            return UITableViewCell()
         }
         
-        print(error)
+        let comic = comicsList[indexPath.row]
+        cell.title.text = comic.safeTitle
+        cell.imageURL = comic.img
+        return cell
     }
 }

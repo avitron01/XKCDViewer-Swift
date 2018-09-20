@@ -1,5 +1,5 @@
 //
-//    APIURL.swift
+//    ComicTableViewCell.swift
 //
 //    Copyright (c) 2018 avitron01
 //
@@ -22,40 +22,31 @@
 //    SOFTWARE.
 //
 
-import Foundation
+import UIKit
 
-enum HTTPMethod: String {
-    case options = "OPTIONS"
-    case get     = "GET"
-    case head    = "HEAD"
-    case post    = "POST"
-    case put     = "PUT"
-    case patch   = "PATCH"
-    case delete  = "DELETE"
-    case trace   = "TRACE"
-    case connect = "CONNECT"
-}
-
-enum APIURL {
-    case base
-    case latest
-    case issue(Int)    
+class ComicTableViewCell: UITableViewCell {
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var comicImage: CachedImageView!
+    @IBOutlet weak var favoriteButton: UIButton!
     
-    var value: String {
-        switch self {
-        case .base:
-            return "https://xkcd.com"
-        case .latest:
-            return "/info.0.json"
-        case .issue(let issueNo):
-            return "/\(issueNo)/info.0.json"
+    var imageURL: URL? {
+        didSet {
+            if comicImage != nil, let url = imageURL {
+                comicImage.loadImage(for: url)
+            }
         }
     }
     
-    var method: HTTPMethod {
-        switch self {
-        case .base, .latest, .issue(_):
-            return .get
-        }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
     }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+
 }

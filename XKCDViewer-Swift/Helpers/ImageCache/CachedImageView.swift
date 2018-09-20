@@ -1,5 +1,5 @@
 //
-//    APIManager.swift
+//    CachedImageView.swift
 //
 //    Copyright (c) 2018 avitron01
 //
@@ -22,50 +22,44 @@
 //    SOFTWARE.
 //
 
-import Foundation
+import UIKit
 
-typealias APICompletion<T> = (Result<T>) -> Void
-
-enum Result<T> {
-    case success(T?)
-    case error(APIError?)
-}
-
-final class APIManager {
-    static let shared = APIManager()
-    private static let decoder = JSONDecoder()
+class CachedImageView: UIImageView {
+    static let imageCache = NSCache<NSString, DiscardableImage>()
     
-    public static func fetchData<T: Codable>(for endpoint: APIURL, type: T.Type, completion: @escaping APICompletion<T>) {
-        guard let urlRequest = URLRequest(path: endpoint.value, method: endpoint.method) else {
-            completion(.error(.parseError))
+    func loadImage(for url: URL, completion: (() -> ())? = nil) {
+        image = nil
+        
+        let urlString = url.absoluteString as NSString
+        
+        if let cachedItem = CachedImageView.imageCache.object(forKey: urlString) {
+            image = cachedItem.image
+            completion?()
             return
         }
         
-        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            guard error == nil else {
-                DispatchQueue.main.sync {
-                    completion(.error(.network(error)))
-                }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                completion?()
                 return
             }
             
-            guard let jsonData = data else {
-                DispatchQueue.main.sync {
-                    completion(.error(.noDataFound))
-                }
+            guard let imageData = data, let image = UIImage(data: imageData) else {
+                completion?()
                 return
             }
             
-            do {
-                let decodedObject = try decoder.decode(T.self, from: jsonData)
-                DispatchQueue.main.sync {
-                    completion(.success(decodedObject))
-                }
-            } catch let error {
-                DispatchQueue.main.sync {
-                    completion(.error(.decoding(error)))
-                }
+            let cacheItem = DiscardableImage(image)
+            CachedImageView.imageCache.setObject(cacheItem, forKey: urlString)
+            
+            DispatchQueue.main.async {
+                self.alpha = 0.0
+                UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseIn, animations: {
+                    self.image = image
+                    self.alpha = 1.0
+                }, completion: nil)
+                completion?()
             }
-        }.resume()
+            }.resume()
     }
 }

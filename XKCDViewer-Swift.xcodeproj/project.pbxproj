@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E1189139215394E9004F2C49 /* ComicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1189138215394E9004F2C49 /* ComicTableViewCell.swift */; };
+		E118913D2153B8BF004F2C49 /* DiscardableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118913C2153B8BF004F2C49 /* DiscardableImage.swift */; };
+		E118913F2153B8F8004F2C49 /* CachedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118913E2153B8F8004F2C49 /* CachedImageView.swift */; };
+		E11891412153BA48004F2C49 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11891402153BA48004F2C49 /* UIAlertController+Extension.swift */; };
 		E12E403D213EB4A800247228 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E403C213EB4A800247228 /* APIRequest.swift */; };
 		E12E403F213EBC6200247228 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E403E213EBC6200247228 /* APIManager.swift */; };
 		E12E4042213EBC8C00247228 /* APIURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E4041213EBC8C00247228 /* APIURL.swift */; };
@@ -41,6 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E1189138215394E9004F2C49 /* ComicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicTableViewCell.swift; sourceTree = "<group>"; };
+		E118913C2153B8BF004F2C49 /* DiscardableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscardableImage.swift; sourceTree = "<group>"; };
+		E118913E2153B8F8004F2C49 /* CachedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageView.swift; sourceTree = "<group>"; };
+		E11891402153BA48004F2C49 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIAlertController+Extension.swift"; path = "XKCDViewer-Swift/Helpers/UIAlertController+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		E12E403C213EB4A800247228 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		E12E403E213EBC6200247228 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		E12E4041213EBC8C00247228 /* APIURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURL.swift; sourceTree = "<group>"; };
@@ -88,6 +96,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E118913A21539B7C004F2C49 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E118913B2153B89D004F2C49 /* ImageCache */,
+				E11891402153BA48004F2C49 /* UIAlertController+Extension.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E118913B2153B89D004F2C49 /* ImageCache */ = {
+			isa = PBXGroup;
+			children = (
+				E118913C2153B8BF004F2C49 /* DiscardableImage.swift */,
+				E118913E2153B8F8004F2C49 /* CachedImageView.swift */,
+			);
+			path = ImageCache;
+			sourceTree = "<group>";
+		};
 		E12E403A213EB44800247228 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +183,7 @@
 		E1DF79B3213D0779005488D2 /* XKCDViewer-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				E118913A21539B7C004F2C49 /* Helpers */,
 				E13DC1BD21529CDF00F73CF0 /* Home */,
 				E12E4040213EBC7600247228 /* Constants */,
 				E12E403A213EB44800247228 /* Manager */,
@@ -198,6 +225,7 @@
 		E1DF79E5213D627E005488D2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E1189138215394E9004F2C49 /* ComicTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -344,11 +372,15 @@
 				E1DF79B7213D0779005488D2 /* ViewController.swift in Sources */,
 				E12E4044213EC7CA00247228 /* ComicServiceManager.swift in Sources */,
 				E1DF79E4213D6138005488D2 /* Comic.swift in Sources */,
+				E11891412153BA48004F2C49 /* UIAlertController+Extension.swift in Sources */,
+				E1189139215394E9004F2C49 /* ComicTableViewCell.swift in Sources */,
 				E13DC1B921528DD800F73CF0 /* AppConstants.swift in Sources */,
 				E12E403F213EBC6200247228 /* APIManager.swift in Sources */,
 				E12E4042213EBC8C00247228 /* APIURL.swift in Sources */,
 				E12E403D213EB4A800247228 /* APIRequest.swift in Sources */,
 				E1DF79B5213D0779005488D2 /* AppDelegate.swift in Sources */,
+				E118913D2153B8BF004F2C49 /* DiscardableImage.swift in Sources */,
+				E118913F2153B8F8004F2C49 /* CachedImageView.swift in Sources */,
 				E13DC1BB21529C4300F73CF0 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
