@@ -306,13 +306,16 @@
 				TargetAttributes = {
 					E1DF79B0213D0779005488D2 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1010;
 					};
 					E1DF79C4213D0782005488D2 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1010;
 						TestTargetID = E1DF79B0213D0779005488D2;
 					};
 					E1DF79CF213D0782005488D2 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1010;
 						TestTargetID = E1DF79B0213D0779005488D2;
 					};
 				};
@@ -562,7 +565,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.avitron01.XKCDViewer-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -579,7 +582,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.avitron01.XKCDViewer-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -598,7 +601,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.avitron01.XKCDViewer-SwiftTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XKCDViewer-Swift.app/XKCDViewer-Swift";
 			};
@@ -618,7 +621,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.avitron01.XKCDViewer-SwiftTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XKCDViewer-Swift.app/XKCDViewer-Swift";
 			};
@@ -637,7 +640,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.avitron01.XKCDViewer-SwiftUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "XKCDViewer-Swift";
 			};
@@ -656,7 +659,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.avitron01.XKCDViewer-SwiftUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "XKCDViewer-Swift";
 			};
